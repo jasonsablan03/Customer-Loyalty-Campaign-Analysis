@@ -238,7 +238,7 @@ WITH cleaned_shopping_behavior_data AS (
 			        	ELSE 'Unknown'
 			     		END AS cleaned_location
 			FROM shopping_behavior_data AS sbd
-			CROSS JOIN LATERAL (
+			CROSS JOIN LATERAL (                  --- Replace state names with proper spelling and capitalization 
 				SELECT state_name
 				FROM states
 				ORDER BY similarity(LOWER(sbd.location), LOWER(state_name)) DESC
@@ -258,4 +258,5 @@ WHERE
 	subscription_status IS NOT NULL AND
 	discount_applied IS NOT NULL AND 
 	previous_purchases IS NOT NULL;
+
 
